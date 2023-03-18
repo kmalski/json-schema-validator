@@ -34,6 +34,10 @@ public final class SpecVersionDetector {
         // Prevent instantiation of this utility class
     }
 
+    public static SpecVersion.VersionFlag detect(JsonMetaSchema metaSchema) {
+        return detect(metaSchema.getUri());
+    }
+
     /**
      * Detects schema version based on the schema tag: if the schema tag is not present, throws
      * {@link JsonSchemaException} with the corresponding message, otherwise - returns the detected spec version.
@@ -55,32 +59,31 @@ public final class SpecVersionDetector {
      * @return Spec version if present, otherwise empty
      */
     public static Optional<SpecVersion.VersionFlag> detectOptionalVersion(JsonNode jsonNode) {
-        return Optional.ofNullable(jsonNode.get(SCHEMA_TAG)).map(schemaTag -> {
-
-            final boolean forceHttps = true;
-            final boolean removeEmptyFragmentSuffix = true;
-
-            String schemaTagValue = schemaTag.asText();
-            String schemaUri = JsonSchemaFactory.normalizeMetaSchemaUri(schemaTagValue, forceHttps,
-                    removeEmptyFragmentSuffix);
-
-            if (schemaUri.equals(JsonMetaSchema.getV4().getUri())) {
-                return SpecVersion.VersionFlag.V4;
-            }
-            if (schemaUri.equals(JsonMetaSchema.getV6().getUri())) {
-                return SpecVersion.VersionFlag.V6;
-            }
-            if (schemaUri.equals(JsonMetaSchema.getV7().getUri())) {
-                return SpecVersion.VersionFlag.V7;
-            }
-            if (schemaUri.equals(JsonMetaSchema.getV201909().getUri())) {
-                return SpecVersion.VersionFlag.V201909;
-            }
-            if (schemaUri.equals(JsonMetaSchema.getV202012().getUri())) {
-                return SpecVersion.VersionFlag.V202012;
-            }
-            throw new JsonSchemaException("'" + schemaTagValue + "' is unrecognizable schema");
-        });
+        return Optional.ofNullable(jsonNode.get(SCHEMA_TAG)).map(schemaTag -> detect(schemaTag.asText()));
     }
 
+    private static SpecVersion.VersionFlag detect(String schemaTagValue) {
+        final boolean forceHttps = true;
+        final boolean removeEmptyFragmentSuffix = true;
+
+        String schemaUri = JsonSchemaFactory.normalizeMetaSchemaUri(schemaTagValue, forceHttps,
+                removeEmptyFragmentSuffix);
+
+        if (schemaUri.equals(Version4.URI)) {
+            return SpecVersion.VersionFlag.V4;
+        }
+        if (schemaUri.equals(Version6.URI)) {
+            return SpecVersion.VersionFlag.V6;
+        }
+        if (schemaUri.equals(Version7.URI)) {
+            return SpecVersion.VersionFlag.V7;
+        }
+        if (schemaUri.equals(Version201909.URI)) {
+            return SpecVersion.VersionFlag.V201909;
+        }
+        if (schemaUri.equals(Version202012.URI)) {
+            return SpecVersion.VersionFlag.V202012;
+        }
+        throw new JsonSchemaException("'" + schemaTagValue + "' is unrecognizable schema");
+    }
 }

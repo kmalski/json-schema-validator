@@ -2,14 +2,16 @@ package com.networknt.schema;
 
 import java.util.Arrays;
 
-public class Version201909 extends JsonSchemaVersion{
-    private static final String URI = "https://json-schema.org/draft/2019-09/schema";
+public class Version201909 extends JsonSchemaVersion {
+
+    public static final String URI = "https://json-schema.org/draft/2019-09/schema";
     private static final String ID = "$id";
 
     static {
         // add version specific formats here.
         //BUILTIN_FORMATS.add(pattern("phone", "^\\+(?:[0-9] ?){6,14}[0-9]$"));
     }
+
     @Override
     public JsonMetaSchema getInstance() {
         return new JsonMetaSchema.Builder(URI)

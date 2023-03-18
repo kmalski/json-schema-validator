@@ -3,7 +3,8 @@ package com.networknt.schema;
 import java.util.Arrays;
 
 public class Version202012 extends JsonSchemaVersion {
-    private static final String URI = "https://json-schema.org/draft/2020-12/schema";
+
+    public static final String URI = "https://json-schema.org/draft/2020-12/schema";
     private static final String ID = "$id";
 
     static {

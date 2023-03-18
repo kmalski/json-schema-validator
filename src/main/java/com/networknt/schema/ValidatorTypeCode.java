@@ -62,7 +62,7 @@ public enum ValidatorTypeCode implements Keyword, ErrorMessageType {
             throw new UnsupportedOperationException("Use FormatKeyword instead");
         }
     },
-    ITEMS("items", "1010", new MessageFormat(I18nSupport.getString("items")), ItemsValidator.class, VersionCode.MaxV201909),
+    ITEMS("items", "1010", new MessageFormat(I18nSupport.getString("items")), ItemsValidator.class, VersionCode.AllVersions),
     MAXIMUM("maximum", "1011", new MessageFormat(I18nSupport.getString("maximum")), MaximumValidator.class, VersionCode.AllVersions),
     MAX_ITEMS("maxItems", "1012", new MessageFormat(I18nSupport.getString("maxItems")), MaxItemsValidator.class, VersionCode.AllVersions),
     MAX_LENGTH("maxLength", "1013", new MessageFormat(I18nSupport.getString("maxLength")), MaxLengthValidator.class, VersionCode.AllVersions),
@@ -101,7 +101,6 @@ public enum ValidatorTypeCode implements Keyword, ErrorMessageType {
     UNEVALUATED_PROPERTIES("unevaluatedProperties","1047",new MessageFormat(I18nSupport.getString("unevaluatedProperties")),UnEvaluatedPropertiesValidator.class, VersionCode.MinV6);
 
     private static final Map<String, ValidatorTypeCode> CONSTANTS = new HashMap<String, ValidatorTypeCode>();
-    private static final SpecVersion SPEC_VERSION = new SpecVersion();
 
     static {
         for (ValidatorTypeCode c : values()) {
@@ -131,7 +130,7 @@ public enum ValidatorTypeCode implements Keyword, ErrorMessageType {
     public static List<ValidatorTypeCode> getNonFormatKeywords(SpecVersion.VersionFlag versionFlag) {
         final List<ValidatorTypeCode> result = new ArrayList<ValidatorTypeCode>();
         for (ValidatorTypeCode keyword : values()) {
-            if (!FORMAT.equals(keyword) && SPEC_VERSION.getVersionFlags(keyword.versionCode).contains(versionFlag)) {
+            if (!FORMAT.equals(keyword) && SpecVersion.getVersionFlags(keyword.versionCode).contains(versionFlag)) {
                 result.add(keyword);
             }
         }

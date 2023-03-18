@@ -48,7 +48,7 @@ public class SpecVersion {
      * @return EnumSet representing a version
      */
     public EnumSet<VersionFlag> getVersionFlags(long versionValue) {
-        EnumSet versionFlags = EnumSet.noneOf(VersionFlag.class);
+        EnumSet<VersionFlag> versionFlags = EnumSet.noneOf(VersionFlag.class);
         for (VersionFlag flag : VersionFlag.values()) {
             long flagValue = flag.versionFlagValue;
             if ((flagValue & versionValue) == flagValue) {
@@ -57,7 +57,6 @@ public class SpecVersion {
         }
         return versionFlags;
     }
-
 
     /**
      * Translates a set of VersionFlag enums into a long version code

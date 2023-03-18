@@ -166,7 +166,7 @@ public class V202012JsonSchemaTest extends BaseSuiteJsonSchemaTest {
 
     @Test
     public void testContainsValidator() throws Exception {
-        runTestFile("draft2019-09/contains.json");
+        runTestFile("draft2020-12/contains.json");
     }
 
     @Test
@@ -217,7 +217,7 @@ public class V202012JsonSchemaTest extends BaseSuiteJsonSchemaTest {
 
     @Test
     public void testMaxItemsValidator() throws Exception {
-        runTestFile("draft2019-09/maxItems.json");
+        runTestFile("draft2020-12/maxItems.json");
     }
 
     @Test
@@ -237,7 +237,7 @@ public class V202012JsonSchemaTest extends BaseSuiteJsonSchemaTest {
 
     @Test
     public void testMinItemsValidator() throws Exception {
-        runTestFile("draft2019-09/minItems.json");
+        runTestFile("draft2020-12/minItems.json");
     }
 
     @Test
